@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import ReposList from './components/ReposList';
 import ErrorMessage from './components/ErrorMessage';
-
-import { HomeBackground, SearchBar, ReposContainer, SearchBtn, Btn, BtnContainer, MainContainer } from './theme';
-
 import { fetchRepos } from './api';
 
+import {
+  HomeBackground,
+  SearchBar,
+  ReposContainer,
+  SearchBtn,
+  Btn,
+  BtnContainer,
+  MainContainer,
+  NextBtn,
+} from './theme';
+
+
 const App = () => {
-  const [user, setUser] = useState('laceswingybethler')
-  const [level, setLevel] = useState('users')
-  const [repos, setRepos] = useState(null)
-  const [error, setError] = useState(null)
+  const [user, setUser] = useState('laceswingybethler');
+  const [level, setLevel] = useState('users');
+  const [repos, setRepos] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleInput = (e) => setUser(e.target.value);
 
@@ -29,9 +38,16 @@ const App = () => {
   const failure = ({ message }) => setError(message);
 
   const handleSubmit = async () => {
-    console.log('user: ', user);
-    fetchRepos(level, user).then(success).catch(failure);
+    fetchRepos(level, user, page).then(success).catch(failure);
   }
+
+  const [page, setPage] = useState(1);
+
+  const nextPage = () => {
+    setPage(page + 1);
+    handleSubmit();
+  }
+
 
   return (
     <HomeBackground>
@@ -45,11 +61,16 @@ const App = () => {
 
         </BtnContainer>
         <SearchBar type="text" value={user} onChange={handleInput} />
-          <SearchBtn onClick={handleSubmit}>Get repos</SearchBtn>
-      <ReposContainer>
-        {repos && <ReposList repos={repos} />}
-        {error && <ErrorMessage message={error} />}
-      </ReposContainer>
+          <SearchBtn onClick={handleSubmit}>get repos</SearchBtn>
+        <ReposContainer>
+          {(repos && !error) && (
+            <>
+            <ReposList repos={repos} />
+            <NextBtn onClick={nextPage}>Next ></NextBtn>
+            </>
+          )}
+          {error && <ErrorMessage message={error} />}
+        </ReposContainer>
       </MainContainer>
     </HomeBackground>
   );

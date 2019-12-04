@@ -28,10 +28,11 @@ export const HomeBackground = styled.div`
   background-color: ${primary};
   min-height: 100vh;
   min-width: 100vw;
+  padding: 100px 0;
 `;
 
 export const MainContainer = styled.div`
-  height: 90vh;
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,7 +51,7 @@ export const MainContainer = styled.div`
   `;
 
  export const Btn = styled.div`
- cursor: pointer;
+  cursor: pointer;
   border-radius: 52px;
   margin: 0 10px;
   display: flex;
@@ -73,6 +74,12 @@ export const MainContainer = styled.div`
       background-color: ${hoverContrast};
       };
   `;
+
+export const NextBtn = styled(Btn)`
+  padding: 20px;
+  border: none;
+  flex: 1;
+`;
 
 export const SearchBar = styled.input`
   border: 2px solid ${accent};
@@ -119,11 +126,5 @@ export const RepoTitleContainer = styled.div`
   justify-content: space-between;
   margin: 0 32px;
   overflow: hidden;
-  `;
-
-export const RepoDetailsContainer = styled.div`
-  display: flex;
-  height: 100%;
-  flex-direction: row;
   `;
 
