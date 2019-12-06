@@ -20,6 +20,7 @@ const App = () => {
   const [level, setLevel] = useState('users');
   const [repos, setRepos] = useState(null);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
 
   const handleInput = (e) => setUser(e.target.value);
 
@@ -38,15 +39,23 @@ const App = () => {
   const failure = ({ message }) => setError(message);
 
   const handleSubmit = async () => {
+    setPage(1);
     fetchRepos(level, user, page).then(success).catch(failure);
   }
 
-  const [page, setPage] = useState(1);
+
 
   const nextPage = () => {
-    setPage(page + 1);
-    handleSubmit();
+    fetchRepos(level, user, page + 1).then(success).catch(failure);
+    setPage(prevPage => prevPage + 1);
   }
+
+  // useEffect(() => {
+  //   console.log(page)
+  //   if (page > 1) {
+  //     fetchRepos(level, user, page).then(success).catch(failure);
+  //   }
+  // }, [page])
 
 
   return (
@@ -66,7 +75,8 @@ const App = () => {
           {(repos && !error) && (
             <>
             <ReposList repos={repos} />
-            <NextBtn onClick={nextPage}>Next ></NextBtn>
+            <NextBtn onClick={nextPage}>{'Next >'}</NextBtn>
+            {/* <NextBtn onClick={nextPage}>{'< Back'}</NextBtn> */}
             </>
           )}
           {error && <ErrorMessage message={error} />}

@@ -76,9 +76,9 @@ export const MainContainer = styled.div`
   `;
 
 export const NextBtn = styled(Btn)`
-  padding: 20px;
   border: none;
   flex: 1;
+  justify-content: flex-end;
 `;
 
 export const SearchBar = styled.input`
@@ -89,7 +89,7 @@ export const SearchBar = styled.input`
   color: white;
   font-size: 16pt;
   color: ${lighterTextColor};
-  margin: 32px 70px;
+  margin: 30px 70px;
   padding: 5px 8px;
   font-family: Helvetica, sans-serif;
   :focus {
@@ -102,6 +102,7 @@ export const ReposContainer = styled.section`
   padding: 16px;
   display: flex;
   flex-wrap: wrap;
+  margin: 20px 0;
 `;
 
 export const Repo = styled.article`
